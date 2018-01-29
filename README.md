@@ -29,6 +29,7 @@ docker build -t hellonode:v1 ./build
 Then deploy. This will echo a randomly generated release name. If you forget the release name, you can find it in `helm list`.
 
 ```bash
+kubernetes create namespace hellonode
 helm install charts/hellonode
 ```
 
