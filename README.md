@@ -1,3 +1,5 @@
+## Setup
+
 Minikube, Kubernetes-cli and Helm required.
 
 ```bash
@@ -13,6 +15,8 @@ eval $(minikube docker-env)
 # Install Helm
 helm init
 ```
+
+## Running
 
 To get started, build the base Docker image.
 
