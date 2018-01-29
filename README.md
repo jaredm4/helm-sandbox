@@ -1,5 +1,19 @@
 Minikube, Kubernetes-cli and Helm required.
 
+```bash
+# Install the things
+brew update
+brew install kubernetes-cli kubernetes-helm
+brew cask install minikube
+
+# Turn on the things (repeat this for every new shell, or add to your bash profile)
+minikube start --vm-driver=hyperkit
+eval $(minikube docker-env)
+
+# Install Helm
+helm init
+```
+
 To get started, build the base Docker image.
 
 ```bash
