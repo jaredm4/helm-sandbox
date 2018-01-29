@@ -8,8 +8,10 @@ brew update
 brew install kubernetes-cli kubernetes-helm
 brew cask install minikube
 
-# Turn on the things (repeat this for every new shell, or add to your bash profile)
+# Turn on the things
 minikube start --vm-driver=hyperkit
+
+# Point your Docker cli to VM  (repeat this for every new shell, or add to your bash profile)
 eval $(minikube docker-env)
 
 # Install Helm
