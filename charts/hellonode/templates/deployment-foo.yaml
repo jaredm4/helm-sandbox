@@ -1,0 +1,32 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  namespace: hellonode
+spec:
+  replicas: {{ .Values.replicas.foo }}
+  template:
+    metadata:
+      name: hellonode
+      labels:
+        app: nodejs
+    spec:
+      volumes:
+        - name: myconfig
+          configMap:
+            name: hellonode
+        - name: mysecret
+          secret:
+            secretName: hellonode
+      containers:
+        - name: hellonode
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: myconfig
+              readOnly: true
+              mountPath: /var/config
+            - name: mysecret
+              readOnly: true
+              mountPath: /var/secret

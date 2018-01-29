@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hellonode
+  namespace: hellonode
+data:
+  myconfig.txt: |
+    This is a sample text file.
+    It is not sensitive, so is handled by ConfigMap instead of Secrets.
