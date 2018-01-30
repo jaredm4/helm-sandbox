@@ -8,3 +8,7 @@ replicas:
 image:
   repository: hellonode
   tag: v1
+
+secrets:
+  mysecret:
+    path: "mysecret.txt"
