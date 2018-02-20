@@ -36,7 +36,7 @@ helm install charts/hellonode
 To update to a new version, build a new Docker image with a new tag, update values.yaml to point to it, then:
 
 ```bash
-helm update release-name charts/hellonode
+helm upgrade {release-name} charts/hellonode
 ```
 
 To access via web browser:
