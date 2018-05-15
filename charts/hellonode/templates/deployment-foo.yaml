@@ -1,8 +1,9 @@
+# 'foo' is a way to deploy reporting image for processing
+# 'bar' (a copy of this file) could be to deploy same reporting image for scheduling
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}
-  namespace: hellonode
 spec:
   replicas: {{ .Values.replicas.foo }}
   template:
