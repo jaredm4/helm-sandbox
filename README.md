@@ -48,5 +48,5 @@ minikube --namespace hellonode service hellonode
 To remove:
 
 ```bash
-helm delete release-name
+helm delete {release-name}
 ```
