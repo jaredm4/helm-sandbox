@@ -61,4 +61,5 @@ LAST DEPLOYED: Tue May 15 16:04:40 2018
 
 # To remove:
 $ helm delete {release-name}
+release "funny-chimp" deleted
 ```
