@@ -8,7 +8,9 @@ brew update
 brew install kubernetes-cli kubernetes-helm
 brew cask install minikube
 
-# Turn on the things
+# Start up minikube (uses VirtualBox by default)
+minikube start
+# Optionally to use hyperkit instead of VirtualBox:
 minikube start --vm-driver=hyperkit
 
 # Point your Docker cli to VM  (repeat this for every new shell, or add to your bash profile)
@@ -38,6 +40,7 @@ Now we can deploy or manage the Helm chart.
 # Create Helm Resources and Deploy. This will echo a randomly generated release name.
 $ helm install --namespace foo charts/hellonode
 NAME:   funny-chimp
+...
 
 # If you forget the release name, you can find it in `helm list`.
 $ helm list --namespace foo
