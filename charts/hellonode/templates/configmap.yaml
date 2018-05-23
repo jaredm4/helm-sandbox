@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: hellonode
+  name: {{ template "fullname" . }}
 data:
   myconfig.txt: |
     This is a sample text file.

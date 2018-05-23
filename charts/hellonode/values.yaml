@@ -1,11 +1,9 @@
-#reporting:
-#  processing:
-#    replicas: 1
+
 replicas:
   foo: 1
-  bar: 2
 
 image:
+  registry:
   repository: hellonode
   tag: v1
 

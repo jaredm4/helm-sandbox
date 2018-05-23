@@ -7,29 +7,30 @@ metadata:
   labels:
     app: {{ template "fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-    release: "{{ .Release.Name }}"
-    heritage: "{{ .Release.Service }}"
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicas.foo }}
   template:
     metadata:
-      name: hellonode
+      name: {{ template "fullname" . }}
       labels:
         app: {{ template "fullname" . }}
         chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-        release: "{{ .Release.Name }}"
-        heritage: "{{ .Release.Service }}"
+        release: {{ .Release.Name }}
+        heritage: {{ .Release.Service }}
     spec:
       volumes:
         - name: myconfig
           configMap:
-            name: hellonode
+            name: {{ template "fullname" . }}
         - name: mysecret
           secret:
-            secretName: hellonode
+            secretName: {{ template "fullname" . }}
       containers:
-        - name: hellonode
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        - name: {{ template "fullname" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+#          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: 8080
           volumeMounts:

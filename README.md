@@ -54,7 +54,7 @@ pod/funny-chimp-95fd59458-h4r56   1/1       Running   0          40s
 ...
 
 # To access via web browser:
-$ minikube --namespace foo service hellonode
+$ minikube --namespace foo service $(helm list --namespace foo -q)-hellonode
 
 # To upgrade to a new version, build a new Docker image with a new tag, update values.yaml to point to it, then:
 $ helm upgrade --namespace foo {release-name} charts/hellonode
