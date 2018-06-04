@@ -1,17 +1,19 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "fullname" . }}
+  name: {{ template "hellonode.fullname" . }}
   labels:
-    app: {{ template "name" . }}
+    app: {{ template "hellonode.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  type: LoadBalancer
-  selector:
-    app: {{ template "name" . }}
+  type: {{ .Values.service.type }}
   ports:
     - name: http
-      port: 8080
+      port: {{ .Values.service.port }}
       targetPort: http
+      protocol: TCP
+  selector:
+    app: {{ template "hellonode.name" . }}
+    release: {{ .Release.Name }}

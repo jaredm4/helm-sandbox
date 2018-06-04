@@ -1,0 +1,13 @@
+1. Get the application URL by running these commands:
+{{- if contains "NodePort" .Values.service.type }}
+  export NODE_PORT=$(kubectl --namespace {{ .Release.Namespace }} get services -o jsonpath="{.spec.ports[0].nodePort}" {{ template "hellonode.fullname" . }})
+  export NODE_IP=$(kubectl --namespace {{ .Release.Namespace }} get nodes -o jsonpath="{.items[0].status.addresses[0].address}")
+  echo http://$NODE_IP:$NODE_PORT
+{{- else if contains "LoadBalancer" .Values.service.type }}
+     NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+           You can watch the status of by running 'kubectl --namespace {{ .Release.Namespace }} get svc -w {{ template "hellonode.fullname" . }}'
+  open http://$(kubectl --namespace {{ .Release.Namespace }} get svc {{ template "hellonode.fullname" . }} -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'):{{ .Values.service.port }}
+{{- else if contains "ClusterIP" .Values.service.type }}
+  kubectl --namespace {{ .Release.Namespace }} port-forward $(kubectl get pods --namespace {{ .Release.Namespace }} -l "app={{ template "hellonode.name" . }},release={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}") 8888:{{ .Values.service.port }}
+  open http://127.0.0.1:8888
+{{- end }}

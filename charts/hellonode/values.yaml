@@ -1,12 +1,26 @@
+# These values, as defaults, should be representative to development.
+# Production values should be provided by the deploy tool.
 
-replicas:
-  foo: 1
+# The number of deployments to launch.
+replicaCount: 1
 
+# Docker image information for the Deployment.
 image:
-  registry: index.docker.io
   repository: hellonode
   tag: v1
+  pullPolicy: IfNotPresent
 
-secrets:
-  mysecret:
-    path: "mysecret.txt"
+# Service access to the Deployment.
+service:
+  type: LoadBalancer
+  port: 8080
+
+# External access to the Service.
+ingress:
+  path: /
+  hosts:
+    - localhost
+
+# Path to secret (sensitive) information. The committed file for development is fine,
+# but production will need to produce this file from our Secrets file.
+mySecretPath: "mysecret.txt"

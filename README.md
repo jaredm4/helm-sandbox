@@ -36,44 +36,41 @@ To get started, build the base Docker image.
 docker build -t hellonode:v1 ./build
 ```
 
-Setup a Kubernetes Namespace. In practice, this would be "preprod" or "production". Namespaces should be setup by hand after a cluster is created for an environment. For this sandbox, I used foo.
+Setup a Kubernetes Namespace. In practice, this would be "preprod" or "production". Namespaces should be setup by hand after a cluster is created for an environment. For this sandbox, I used hellonode.
 
 ```bash
-kubectl create namespace foo
+kubectl create namespace hellonode
 ```
 
 Now we can deploy or manage the Helm chart.
 
 ```bash
-# Create Helm Resources and Deploy. This will echo a randomly generated release name.
-$ helm install --namespace foo charts/hellonode
-NAME:   funny-chimp
+# Create Helm Resources and Deploy. Same command to install or upgrade the charts. The release name can be random or pre-defined (like below). The name of the release is used on all the resources.
+$ helm --namespace hellonode upgrade --install hellonode charts/hellonode
+Release "hellonode" does not exist. Installing it now.
+NAME:   hellonode
+LAST DEPLOYED: Mon Jun  4 17:05:25 2018
 ...
 
 # If you forget the release name, you can find it in `helm list`.
-$ helm list --namespace foo
-NAME       	REVISION	UPDATED                 	STATUS  	CHART          	NAMESPACE
-funny-chimp	1       	Tue May 15 15:52:55 2018	DEPLOYED	hellonode-0.0.1	foo
+$ helm --namespace hellonode list
+NAME     	REVISION	UPDATED                 	STATUS  	CHART          	NAMESPACE
+hellonode	1       	Mon Jun  4 17:05:25 2018	DEPLOYED	hellonode-0.0.1	hellonode
 
 # To see all the Kubernetes Resources created:
-$ kubectl get all --namespace foo
-NAME                              READY     STATUS    RESTARTS   AGE
-pod/funny-chimp-95fd59458-h4r56   1/1       Running   0          40s
+$ kubectl --namespace hellonode get all
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deploy/hellonode   1         1         1            1           1m
 ...
 
 # To access via web browser for MINIKUBE:
-$ minikube --namespace foo service $(helm list --namespace foo -q)-hellonode
+$ minikube --namespace hellonode service $(helm --namespace hellonode list -q)-hellonode
 
 # To access via Docker for Mac Edge Kubernetes (the port comes from the service yaml file):
 $ open http://localhost:8080
-
-# To upgrade to a new version, build a new Docker image with a new tag, update values.yaml to point to it, then:
-$ helm upgrade --namespace foo {release-name} charts/hellonode
-Release "funny-chimp" has been upgraded. Happy Helming!
-LAST DEPLOYED: Tue May 15 16:04:40 2018
 ...
 
-# To remove:
-$ helm delete {release-name}
-release "funny-chimp" deleted
+# To remove the release. For development, you can use --purge to wipe all remains of the release.
+$ helm delete --purge hellonode
+release "hellonode" deleted
 ```

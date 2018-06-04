@@ -1,13 +1,22 @@
+{{- $fullName := include "hellonode.fullname" . -}}
+{{- $ingressPath := .Values.ingress.path -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ template "fullname" . }}
+  name: {{ $fullName }}
+  labels:
+    app: {{ template "hellonode.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 spec:
   rules:
-    - host: localhost
+  {{- range .Values.ingress.hosts }}
+    - host: {{ . }}
       http:
         paths:
-          - path: /
+          - path: {{ $ingressPath }}
             backend:
-              serviceName: {{ template "fullname" . }}
-              servicePort: 8080
+              serviceName: {{ $fullName }}
+              servicePort: http
+  {{- end }}
