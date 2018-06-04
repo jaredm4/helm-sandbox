@@ -1,5 +1,9 @@
 ## Setup
 
+You have two options currently. Minikube (kubernetes-backed development environment) or Docker for Mac Edge (Docker backed development environment that includes single-node Kubernetes).
+
+### Minikube
+
 Minikube, Kubernetes-cli and Helm required.
 
 ```bash
@@ -19,6 +23,10 @@ eval $(minikube docker-env)
 # Install Helm
 helm init
 ```
+
+### Docker for Mac (Edge)
+
+Install [Docker for Mac (Edge)](https://store.docker.com/editions/community/docker-ce-desktop-mac), and enable Kubernetes following [this guide](https://rominirani.com/tutorial-getting-started-with-kubernetes-with-docker-on-mac-7f58467203fd). If you already have Docker for Mac Stable installed, you'll need to re-install the Edge version, which will replace the Stable one. Optionally setup the Kubernetes Dashboard as described there too.
 
 ## Running
 
@@ -53,8 +61,11 @@ NAME                              READY     STATUS    RESTARTS   AGE
 pod/funny-chimp-95fd59458-h4r56   1/1       Running   0          40s
 ...
 
-# To access via web browser:
+# To access via web browser for MINIKUBE:
 $ minikube --namespace foo service $(helm list --namespace foo -q)-hellonode
+
+# To access via Docker for Mac Edge Kubernetes (the port comes from the service yaml file):
+$ open http://localhost:8080
 
 # To upgrade to a new version, build a new Docker image with a new tag, update values.yaml to point to it, then:
 $ helm upgrade --namespace foo {release-name} charts/hellonode

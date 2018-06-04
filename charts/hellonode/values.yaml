@@ -3,7 +3,7 @@ replicas:
   foo: 1
 
 image:
-  registry:
+  registry: index.docker.io
   repository: hellonode
   tag: v1
 
