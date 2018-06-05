@@ -23,4 +23,4 @@ ingress:
 
 # Path to secret (sensitive) information. The committed file for development is fine,
 # but production will need to produce this file from our Secrets S3 Bucket.
-mySecretPath: "mysecret.txt"
+mySecretPath: secrets/mysecret.txt
