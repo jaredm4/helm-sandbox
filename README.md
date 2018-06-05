@@ -2,7 +2,13 @@
 
 You have two options currently. Minikube (kubernetes-backed development environment) or Docker for Mac Edge (Docker backed development environment that includes single-node Kubernetes).
 
-### Minikube
+I currently recommend Docker for Mac Edge because it handles host OS sleep/wakes better.
+
+### Docker for Mac Edge (Recommended)
+
+Install [Docker for Mac (Edge)](https://store.docker.com/editions/community/docker-ce-desktop-mac), and enable Kubernetes following [this guide](https://rominirani.com/tutorial-getting-started-with-kubernetes-with-docker-on-mac-7f58467203fd). If you already have Docker for Mac Stable installed, you'll need to re-install the Edge version, which will replace the Stable one. Optionally setup the Kubernetes Dashboard as described there too.
+
+### Minikube (Deprecated)
 
 Minikube, Kubernetes-cli and Helm required.
 
@@ -24,13 +30,9 @@ eval $(minikube docker-env)
 helm init
 ```
 
-### Docker for Mac (Edge)
-
-Install [Docker for Mac (Edge)](https://store.docker.com/editions/community/docker-ce-desktop-mac), and enable Kubernetes following [this guide](https://rominirani.com/tutorial-getting-started-with-kubernetes-with-docker-on-mac-7f58467203fd). If you already have Docker for Mac Stable installed, you'll need to re-install the Edge version, which will replace the Stable one. Optionally setup the Kubernetes Dashboard as described there too.
-
 ## Running
 
-To get started, build the base Docker image.
+To get started, build the example Docker image. It's a simple NodeJS app running on container port 8080. The name and tag must match what is in values.yaml.
 
 ```bash
 docker build -t hellonode:v1 ./build
