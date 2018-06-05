@@ -6,7 +6,7 @@ metadata:
   name: {{ $fullName }}
   labels:
     app: {{ template "hellonode.name" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    chart: {{ template "hellonode.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
